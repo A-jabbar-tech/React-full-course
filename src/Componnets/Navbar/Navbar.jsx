@@ -1,12 +1,12 @@
 import React from "react";
 
 function Navbar(props) {
-
-  
-
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark" >
+      <nav
+        className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
+      >
+        {/* we uses prop.mode that are comming from app.jsx that tell is wheather mode is on or not  */}
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
             {props.name}
@@ -25,26 +25,33 @@ function Navbar(props) {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className={`nav-link ${props.showa ? "active" : ""}`} aria-current="page" href="#"
-                onClick={(e)=> {  
-                  e.preventDefault();                        // toggle the state true / false
-                  props.setshowa(true)
-                }}>
+                <a
+                  className={`nav-link ${props.showa ? "active" : ""}`}
+                  aria-current="page"
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault(); // toggle the state true / false
+                    props.setshowa(true);
+                  }}
+                >
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className={`nav-link ${!props.showa ? "active" : "" }`} href="#"  
-                onClick={(e)=> {                             // toggle the state true / false
-                  e.preventDefault();
-                  props.setshowa(false)
-                  }}>
+                <a
+                  className={`nav-link ${!props.showa ? "active" : ""}`}
+                  href="#"
+                  onClick={(e) => {
+                    // toggle the state true / false
+                    e.preventDefault();
+                    props.setshowa(false);
+                  }}
+                >
                   About
                 </a>
               </li>
-              
             </ul>
-            <form className="d-flex">
+            <form className="d-flex align-items-center gap-3">
               <input
                 className="form-control me-2"
                 type="search"
@@ -54,8 +61,19 @@ function Navbar(props) {
               <button className="btn btn-outline-primary" type="submit">
                 Search
               </button>
+              <div class={`form-check form-switch ${props.mode === "light" ? "text-dark" : "text-light"} fw-semibold`}>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="switchCheckDefault"
+                  onClick={props.ToggleMode}
+                />
+                <label class="form-check-label" for="switchCheckDefault">
+                  Mode
+                </label>
+              </div>
             </form>
-            
           </div>
         </div>
       </nav>
