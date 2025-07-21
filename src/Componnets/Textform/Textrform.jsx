@@ -9,16 +9,19 @@ function Textrform(props) {
 
     // to upper case 
     const handleupclick = ()=>{
-        settext(text.toUpperCase())
+        settext(text.toUpperCase()) ;
+        props.showalert("Converted to uppercase" , "success");
     }
 
     // for lower case 
     const handledownclick = ()=>{
-        settext(text.toLowerCase())
+        settext(text.toLowerCase());
+        props.showalert("Converted to lowercase" , "success")
     }
     //for clear
     const handleClearclick = ()=>{
-        settext("")
+        settext("");
+        props.showalert("All cleared" , "success")
     }
     const handleonchange = (e)=>{
         settext(e.target.value)   // enables us to write value in textarea

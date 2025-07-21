@@ -61,15 +61,15 @@ function Navbar(props) {
               <button className="btn btn-outline-primary" type="submit">
                 Search
               </button>
-              <div class={`form-check form-switch ${props.mode === "light" ? "text-dark" : "text-light"} fw-semibold`}>
+              <div className={`form-check form-switch ${props.mode === "light" ? "text-dark" : "text-light"} fw-semibold`}>
                 <input
-                  class="form-check-input"
+                  className="form-check-input"
                   type="checkbox"
                   role="switch"
                   id="switchCheckDefault"
                   onClick={props.ToggleMode}
                 />
-                <label class="form-check-label" for="switchCheckDefault">
+                <label className="form-check-label" htmlFor="switchCheckDefault">
                   Mode
                 </label>
               </div>
