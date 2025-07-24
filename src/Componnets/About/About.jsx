@@ -1,33 +1,11 @@
 import React, { useState } from "react";
 
 function About() {
-  const [btnText, setBtnText] = useState("Dark Mode");
-  const [mystyle, setMystyle] = useState({
-    color: "black",
-    backgroundColor: "white",
-  });
-
-  const togglestyle = () => {
-    if (mystyle.color === "black") {
-      setMystyle({
-        color: "white",
-        backgroundColor: "black",
-        border : "blue 2px solid"
-      });
-      setBtnText("Light Mode");
-    } else {
-      setMystyle({
-        color: "black",
-        backgroundColor: "white",
-        border : "black 2px solid"
-      });
-      setBtnText("Dark Mode");
-    }
-  };
+  
 
   return (
-    <div className="container my-4 p-3" id="about" style={mystyle}>
-      {/* style is object that is given by react to style  */}
+    <div className="container my-4 p-3" id="about">
+    
       <h2>About us</h2>
       <div className="accordion" id="accordionExample">
         <div className="accordion-item">
@@ -121,13 +99,7 @@ function About() {
           </div>
         </div>
       </div>
-      <button
-        type="button"
-        className="btn btn-primary my-2"
-        onClick={togglestyle}
-      >
-        {btnText}
-      </button>
+      
     </div>
   );
 }

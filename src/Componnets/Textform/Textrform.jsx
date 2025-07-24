@@ -52,7 +52,7 @@ function Textrform(props) {
 
       <div className="container my-3">
         <h3>Your Text Sumary</h3>
-        <p> {text.split(" ").length} words and {text.length} characters</p>
+        <p> {text.split(" ").filter((element)=>element.length!=0).length} words and {text.length} characters</p>
         <p> { 0.008 * text.split(" ").length } : minutes read</p>
         <h4>Preview</h4>
         <p>{text === "" ? "Enter something in textbox to preview here!!" : text }</p>
