@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 function Navbar(props) {
   return (
@@ -8,9 +9,9 @@ function Navbar(props) {
       >
         {/* we uses prop.mode that are comming from app.jsx that tell is wheather mode is on or not  */}
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" to="/">
             {props.name}
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -24,32 +25,22 @@ function Navbar(props) {
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+
+              {/* using navlinks provided by react router dom same as <a> it has href="" and navlink has to="" */}
+
               <li className="nav-item">
-                <a
-                  className={`nav-link ${props.showa ? "active" : ""}`}
-                  aria-current="page"
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault(); // toggle the state true / false
-                    props.setshowa(true);
-                  }}
-                >
-                  Home
-                </a>
+                <NavLink className="nav-link text-decoration-none" to="/">
+                    Home
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a
-                  className={`nav-link ${!props.showa ? "active" : ""}`}
-                  href="#"
-                  onClick={(e) => {
-                    // toggle the state true / false
-                    e.preventDefault();
-                    props.setshowa(false);
-                  }}
-                >
+                <NavLink className="nav-link text-decoration-none" to="/about">
                   About
-                </a>
+                </NavLink>
               </li>
+
+
+
             </ul>
             <form className="d-flex align-items-center gap-3">
               <input
