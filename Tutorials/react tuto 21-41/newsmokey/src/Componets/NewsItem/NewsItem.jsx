@@ -11,9 +11,9 @@ export class NewsItem extends Component {
         <div className="card h-100" style={{width: "18rem"}}>
           <img src={imageUrl} className="card-img-top" alt="..." />
           <div className="card-body">
-            <h5 className="card-title">{title}...</h5>
+            <h5 className="card-title">{title}</h5>
             <p className="card-text">
-              {description}...
+              {description}
             </p>
             <a href={newsUrl} target="_blank" className="btn btn-sm btn-dark">
               Read More
