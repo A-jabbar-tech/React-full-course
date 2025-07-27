@@ -51,20 +51,23 @@ export default class News extends Component {
       <div className='container text-center my-3'>
         <h3>NewsMonkey - Top Headlines</h3>
 
+        {/* Looping through an array in JSX to display NewsItems from news articles one by one */}
+
+       
         <div className="row">
-
-          <div className="col-md-4">
-             <NewsItem title ="mytitle" description="my desc" imageUrl={"https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1099495_800x450.jpg"}  newsUrl = "todo"/>
+           { this.state.articles.map ( (element , index )=>{
+            return <div className="col-md-4" /* key={index}*/ key={element.url}>
+             <NewsItem 
+                title ={element.title.slice(0, 45)} 
+                description={element.description.slice(0, 88)} 
+                imageUrl={element.urlToImage}  
+                newsUrl = {element.url}
+             />
           </div>
 
-          <div className="col-md-4">
-             <NewsItem title ="mytitle" description="my desc"/>
-          </div>
+           })}
 
-          <div className="col-md-4">
-             <NewsItem title ="mytitle" description="my desc"/>
-          </div>
-
+          
         </div>
 
 
