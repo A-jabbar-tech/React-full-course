@@ -98,6 +98,9 @@ export default class News extends Component {
                 description={ element.description? element.description : ""} 
                 imageUrl={element.urlToImage ? element.urlToImage : "https://static.dw.com/image/73420894_6.jpg"}  
                 newsUrl = {element.url}
+                author = {element.author}
+                date = {element.publishedAt} 
+                source = {element.source.name}
              />
           </div>
            })}          
