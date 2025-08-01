@@ -16,15 +16,19 @@ export default class News extends Component {
     country: PropTypes.string,
     category: PropTypes.string,
   };
-
-  constructor() {
-    super();
+  captalize = (string)=>{
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+  constructor(props) {
+    super(props);
     // class compnonets we initialize sate using this.state and to set it we use this.setstate
     this.state = {
       articles: [],
       loading: false,
       page: 1,
     };
+
+    document.title = `${this.captalize(this.props.category)} - NewsMonkey`
   }
 
   // refactoring      we use this as function in all fetching api , nexthandle , previous handele and remove other code to look clean and readable
@@ -62,7 +66,7 @@ export default class News extends Component {
     return (
       <div className="container text-center my-3">
         <h3 className="text-center" style={{ margin: "35px 0px" }}>
-          NewsMonkey - Top Headlines
+          NewsMonkey - Top <span className="text-danger">{this.captalize(this.props.category)}</span> Headlines
         </h3>
         {/* craeting spninner and when loading is true then it shows spinner */}
         {this.state.loading && <Spinner />}
