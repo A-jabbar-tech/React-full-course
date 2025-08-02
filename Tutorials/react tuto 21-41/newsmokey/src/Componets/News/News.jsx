@@ -34,16 +34,20 @@ export default class News extends Component {
 
   // refactoring      we use this as function in all fetching api , nexthandle , previous handele and remove other code to look clean and readable
   async updatenews() {
+    this.props.setprogress(10)
     const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=828e5d6e1535409a96303d13a8101ba9&page=${this.state.page}&pagesize=${this.props.pagesize}`;
     this.setState({ loading: true });
+     this.props.setprogress(30)
     let data = await fetch(url);
+     this.props.setprogress(50)
     let dataparsed = await data.json();
-
+     this.props.setprogress(80)
     this.setState({
       articles: dataparsed.articles,
       Totalresults: dataparsed.totalResults,
       loading: false,
     });
+    this.props.setprogress(100)
   }
 
   // fetching Api
