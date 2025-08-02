@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NewsItem from "../NewsItem/NewsItem";
 import Spinner from "../Spinner/Spinner";
 import PropTypes from "prop-types";
-
+import InfiniteScroll from "react-infinite-scroll-component";
 export default class News extends Component {
   // proptypes
   static defaultProps = {
@@ -25,7 +25,8 @@ export default class News extends Component {
     this.state = {
       articles: [],
       loading: false,
-      page: 1,
+      page: 1, 
+      totalResults : 0
     };
 
     document.title = `${this.captalize(this.props.category)} - NewsMonkey`
@@ -50,75 +51,67 @@ export default class News extends Component {
     this.updatenews();
   }
 
-  // handle next click
+fetchMoreData = async() => {
+    this.setState({page : this.state.page + 1});
+     const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=828e5d6e1535409a96303d13a8101ba9&page=${this.state.page}&pagesize=${this.props.pagesize}`;
+    
+    let data = await fetch(url);
+    let dataparsed = await data.json();
 
-  handlenextclick = async () => {
-    this.setState({ page: this.state.page + 1 });
-    this.updatenews();
-  };
-  //handle previous click
-  handleprevclick = async () => {
-    this.setState({ page: this.state.page - 1 });
-    this.updatenews();
+    this.setState({
+      articles: this.state.articles.concat(dataparsed.articles),
+      Totalresults: dataparsed.totalResults,
+    });
   };
 
   render() {
     return (
-      <div className="container text-center my-3">
+      <>
         <h3 className="text-center" style={{ margin: "35px 0px" }}>
           NewsMonkey - Top <span className="text-danger">{this.captalize(this.props.category)}</span> Headlines
         </h3>
-        {/* craeting spninner and when loading is true then it shows spinner */}
-        {this.state.loading && <Spinner />}
+        
+
+        {/* adding infinite scroll bar  */}
+        {this.state.loading && <Spinner/>}
+        <InfiniteScroll
+          dataLength={this.state.articles.length}
+          next={this.fetchMoreData}
+          hasMore={this.state.articles.length !== this.state.totalResults}
+          loader={ <Spinner />}
+        >
+
+
 
         {/* Looping through an array in JSX to display NewsItems from news articles one by one */}
-
-        <div className="row">
-          {!this.state.loading &&
-            this.state.articles.map((element, index) => {
-              return (
-                <div className="col-md-4" /* key={index}*/ key={element.url}>
-                  <NewsItem
-                    title={element.title ? element.title : ""}
-                    description={element.description ? element.description : ""}
-                    imageUrl={
-                      element.urlToImage
-                        ? element.urlToImage
-                        : "https://static.dw.com/image/73420894_6.jpg"
-                    }
-                    newsUrl={element.url}
-                    author={element.author}
-                    date={element.publishedAt}
-                    source={element.source.name}
-                  />
-                </div>
-              );
-            })}
+        <div className="container">
+          <div className="row">
+            {
+              this.state.articles.map((element, index) => {
+                return (
+                  <div className="col-md-4" /* key={index}*/ key={element.url}>
+                    <NewsItem
+                      title={element.title ? element.title : ""}
+                      description={element.description ? element.description : ""}
+                      imageUrl={
+                        element.urlToImage
+                          ? element.urlToImage
+                          : "https://static.dw.com/image/73420894_6.jpg"
+                      }
+                      newsUrl={element.url}
+                      author={element.author}
+                      date={element.publishedAt}
+                      source={element.source.name}
+                    />
+                  </div>
+                );
+              })}
+          </div>
         </div>
 
-        <div className="container d-flex justify-content-between">
-          <button
-            disabled={this.state.page <= 1}
-            type="button"
-            className="btn btn-dark"
-            onClick={this.handleprevclick}
-          >
-            {" "}
-            &larr; Previous
-          </button>
-          <button
-            disabled={
-              this.state.page + 1 >
-              Math.ceil(this.state.Totalresults / this.props.pagesize)
-            }
-            type="button"
-            className="btn btn-dark"
-            onClick={this.handlenextclick}
-          >
-            Next &rarr;
-          </button>
-        </div>
-      </div>
+        </InfiniteScroll>
+
+      </>
     );
   }
 }
