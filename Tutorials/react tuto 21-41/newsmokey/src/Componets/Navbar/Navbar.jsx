@@ -1,9 +1,8 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 function Navbar() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <NavLink className="navbar-brand fw-bold fs-4 text-danger" to="/">
             NewsMonkey
@@ -67,3 +66,5 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
